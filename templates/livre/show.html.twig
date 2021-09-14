@@ -1,0 +1,52 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Livre{% endblock %}
+
+{% block body %}
+    <h1>Fiche du Livre {{ livre.id }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ livre.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ livre.titre}}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ livre.auteur}}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ livre.categorie.titre}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+<h2>Liste des emprunts</h2>
+
+<table class="table">
+    <tr>
+        <th>Abonné</th>
+        <th>date d'emprunt</th>
+        <th>date de retour</th>
+    </tr>
+        
+    {% for item in livre.emprunts %}
+        <tr>
+            <td>{{ item.abonne.pseudo}}</td>
+            <td>{{ item.dateEmprunt|date('d/m/y') }}</td>
+            <td>{{ item.dateRetour|date('d/m/y') }}</td>
+        </tr>
+    {% endfor %}
+
+</table>
+
+<a href="{{ path("livre_index") }}">
+        <i class="fa fa-reply"></i>
+    </a>
+    
+{% endblock %}

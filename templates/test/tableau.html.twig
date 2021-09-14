@@ -1,0 +1,45 @@
+{# le mot clé extends indique que le fichier 'herite' du fichier base.html.twig, cela veut dire que le contenu de ses balises 'block' vont remplacer le contenu des balises block de base.html.twig #}
+{# il faut comprendre que l'on injecte le block du fichier en cours dans le block du fichier indiqué en argument #}
+{% extends "base.html.twig" %}
+{% block body %}
+    {# si la variable tableau existe, on effectue le code ci dessous #}
+    {% if tableau is defined and tableau is not empty %}
+
+        <h2>Contenu de la variable 'tableau' : </h2>
+        <ul>
+            <li>{{tableau[0]}}</li>
+            <li>{{tableau[1]}}</li>
+            <li>{{tableau[2]}}</li>
+        </ul>
+
+        <hr>
+
+        {# STRUCTURE ITERATIVE : FOR #}
+
+        <ul>
+            {% for valeur in tableau %}
+                <li>{{valeur}}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Boucle FOR</h2>
+        {% for i in 1..10 %}
+            {{ i }}
+        {% endfor %}
+
+    {% endif %}
+
+
+    <p>je m'appel {{personne.prenom}} {{personne.nom}} j'ai {{personne.age}} ans </p>
+
+    {# La concatenation se fait avec le symbole ~ #}
+
+    <p>je m'appel {{personne.prenom ~ " " ~ personne.nom ~ " j'ai " ~ personne.age ~ " ans"}}</p>
+
+    <p>Je suis
+        {% for valeur in personne %}
+            {{ valeur ~ " "}}
+        {% endfor %}
+    </p>
+    
+{% endblock %}

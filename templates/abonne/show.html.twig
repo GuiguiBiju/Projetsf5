@@ -1,0 +1,82 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Abonne{% endblock %}
+
+{% block body %}
+    <h1>Abonne</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ abonne.id }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ abonne.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Roles</th>
+                <td>{{ abonne.roles ? abonne.roles|json_encode : '' }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ abonne.password }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ abonne.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ abonne.prenom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Liste des emprunts</h2>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Livre</th>
+                <th>Auteur</th>
+                <th>Categorie</th>
+                <th>date emprunt</th>
+                <th>rendu le</th>
+
+                
+
+            </tr>
+            
+            {% for item in abonne.emprunts %}
+            <tr>
+                <th>emprunts</th>
+                <td>{{ item.id }}</td>
+                <td>{{ item.livre.titre }}</td>
+                <td>{{ item.livre.auteur }}</td>
+                <td>{{ item.livre.categorie.titre }}</td>
+                <td>{{ item.dateEmprunt|date('d/m/y') }}</td>
+                <td>{{ item.dateRetour|date('d/m/y') }}</td>
+            </tr>
+
+            {% else %}
+
+            <tr>
+                <th>aucun emprunt enregistré</th>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="{{ path('abonne_index') }}">back to list</a>
+
+    <a href="{{ path('abonne_edit', {'id': abonne.id}) }}">edit</a>
+
+    {{ include('abonne/_delete_form.html.twig') }}
+{% endblock %}

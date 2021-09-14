@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="{{ path("accueil") }}">Biblio</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+		{# si l'utilisateur n'est pas connecté, on affiche la connexion#}
+			{% if not app.user  %}
+				<li class="nav-item active">
+					<a class="nav-link" href="{{ path("app_login") }}"><i class="fa fa-sign-in-alt">Connexion</i>
+					</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="{{ path("app_register") }}"><i class="fa fa-sign-in-alt">Inscription</i>
+					</a>
+				</li>
+			{% endif %}
+	{# si l'utilisateur est connecté, on affiche la deconnexion#}
+			{% if app.user %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{path("profil_index")}}">{{app.user.pseudo}}</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path("app_logout") }}"><i class="fa fa-sign-in-alt">Déconnexion</i></a>
+				</li>
+			{% endif %}
+
+{# is_granted permet de vérifier si l'utilisateur connecté à le role demandé#}
+			{% if is_granted("ROLE_ADMIN") %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Livres
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path("livres") }}">Mes livres</a>
+						<a class="dropdown-item" href="{{ path("livre_nouveau") }}">Ajouter un livre</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ path("livre_index") }}">index des livres BDD</a>
+						
+					</div>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Categories
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path("categorie_new") }}">Ajouter une categorie</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ path("categorie_index") }}">index des categories BDD</a>
+					</div>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Abonnés
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path("abonne_new") }}">Ajouter un abonné</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ path("abonne_index") }}">index des abonnés BDD</a>
+					</div>
+				</li>
+			{% endif %}
+
+		{# affichage pour les Biblio #}
+			{% if is_granted('ROLE_BIBLIO') %}
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Emprunts
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="{{ path("emprunt_new") }}">Ajouter un Emprunt</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{{ path("emprunt_index") }}">index des emprunts BDD</a>
+					</div>
+				</li>
+			{% endif %}
+
+		</ul>
+		<form class="form-inline my-2 my-lg-0" action="{{ path("recherche_index") }}">
+			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		</form>
+	</div>
+</nav>

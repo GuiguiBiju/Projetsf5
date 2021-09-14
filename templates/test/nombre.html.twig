@@ -1,0 +1,38 @@
+{# le mot clé extends indique que le fichier 'herite' du fichier base.html.twig, cela veut dire que le contenu de ses balises 'block' vont remplacer le contenu des balises block de base.html.twig #}
+{# il faut comprendre que l'on injecte le block du fichier en cours dans le block du fichier indiqué en argument #}
+{% extends "base.html.twig" %}
+{% block body %}
+    
+{# si la variable nombre2 existe, on effectue le code ci dessous #}
+{% if nombre2 is defined %}
+    <p>votre nombre est {{nombre}} et son carré est {{nombre*nombre}} </p>
+    <table style="border: 1px solid black;">
+        <tr>
+            <td style="border: 1px solid black;">Nombre de base</td>
+            <td style="border: 1px solid black;">Nombre au carré</td>
+        </tr>
+        {% for i in 1..nombre %}
+            <tr >
+                <td style="border: 1px solid black;">{{i}}</td>
+                <td style="border: 1px solid black;">{{i*i}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endif  %}
+
+{# dans tous les cas, on affiche ceci #}
+<table style="border: 1px solid black;">
+    <tr>
+        <td style="border: 1px solid black;">Nombre de base</td>
+        <td style="border: 1px solid black;">Nombre x 2</td>
+    </tr>
+{% for i in 1..nombre %}
+    <tr>
+        <td style="border: 1px solid black;">{{i}}</td>
+        <td style="border: 1px solid black;">{{i*2}}</td>
+    </tr>
+{% endfor %}
+    
+</table>
+
+{% endblock %}

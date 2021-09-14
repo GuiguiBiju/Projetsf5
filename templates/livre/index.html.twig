@@ -1,0 +1,43 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des livres{% endblock %}
+
+{% block body %}
+
+    <table class="table table-bordered">
+
+        <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Couverture</th>
+                    <th>Titre du Livre</th>
+                    <th>Auteur</th>
+                    <th>Categorie</th>
+                    <th>Disponible</th>
+                    <th>Action</th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for livres in liste %}
+                <tr>
+                    <td>{{livres.id}}</td>
+                    <td>
+                        <img src="{{ dossier_images ~ livres.couverture}}" alt="{{livres.titre}}" class="miniature">
+                    </td>
+                    <td>{{livres.titre}}</td>
+                    <td>{{livres.auteur}}</td>
+                    <td>{{ livres.categorie ? livres.categorie.titre : ""}}</td>
+                    <td>{{ livres in livres_empruntes ? "Non disponible" : "disponible" }}</td>
+                    <td>
+                        <a href="{{ path("livre_modifier", {id: livres.id}) }}">modif </a>
+                        <a href="{{ path("livre_supprimer", {id: livres.id}) }}"> <i class="fa fa-trash"></i></a>
+                        <a href="{{ path("livre_show", {id: livres.id}) }}">voir</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+{% endblock %}
+

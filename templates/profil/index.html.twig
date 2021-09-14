@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Lecteur{% endblock %}
+
+{% block body %}
+     <h1>Mon profil</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ app.user.id }}</td>
+            </tr>
+            <tr>
+                <th>Pseudo</th>
+                <td>{{ app.user.pseudo }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ app.user.password }}</td>
+            </tr>
+            <tr>
+                <th>Identité</th>
+                <td>{{ app.user.nom ~ " " ~ app.user.prenom }}</td>
+            </tr>
+           
+        </tbody>
+    </table>
+
+    <h2>Liste des emprunts</h2>
+
+    <table class="table">
+        <tbody>
+
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Livre</th>
+                <th>Auteur</th>
+                <th>Categorie</th>
+                <th>date emprunt</th>
+                <th>rendu le</th>
+
+                
+
+            </tr>
+            
+            {% for item in app.user.emprunts %}
+                <tr>
+                    <th>emprunts</th>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.livre.titre }}</td>
+                    <td>{{ item.livre.auteur }}</td>
+                    <td>{{ item.livre.categorie.titre }}</td>
+                    <td>{{ item.dateEmprunt|date('d/m/y') }}</td>
+                    <td>{{ item.dateRetour|date('d/m/y') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <th>aucun emprunt enregistré</th>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+{% endblock %}
