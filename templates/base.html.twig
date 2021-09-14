@@ -24,7 +24,7 @@
             {% endfor %}
         {% endfor %}
 
-            <h1>Bienvenue dans la bibliothèque</h1>
+            <h1>{% block h1 %} Biblio{% endblock %}</h1>
             
             {% block body %}
                 <p>Bonjour, {{prenom|capitalize}} </p> {# | désigne l'applicaion d'un filtre au sein d'un élément/variable, dans ce cas, on applique un filtre uppercase #}
