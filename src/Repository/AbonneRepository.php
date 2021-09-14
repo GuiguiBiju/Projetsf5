@@ -36,6 +36,20 @@ class AbonneRepository extends ServiceEntityRepository implements PasswordUpgrad
         $this->_em->flush();
     }
 
+    public function recherche($value)
+    {
+        /* SELECT * FROM abonne a WHERE titre LIKE "%searchValue%" */
+        return $this->createQueryBuilder('a') //le paramètre 'a' représente la table abonne (comme un alias dans une requete sql)
+            ->andWhere('a.pseudo LIKE :val')
+            ->orWhere('a.nom LIKE :val')
+            ->orWhere('a.prenom LIKE :val')
+            ->setParameter('val', "%$value%")
+            ->orderBy('a.pseudo', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Abonne[] Returns an array of Abonne objects
     //  */

@@ -5,8 +5,24 @@
 {% block body %}
     <h2>Résultat de la recherche de {{ mot }}</h2>
     <div class="card-column">
+
         {% for livre in livres %}
             {% include "livre/vignette.html.twig" %}
+        {% else %}
+            <p>Aucun livre ne correspond à la recherche</p>
         {% endfor %}
+
+        {% if is_granted('ROLE_BIBLIO') %}
+            <h2>Abonnés correspondants a la recherche {{mot}}</h2>
+            {% if abonnes is not empty %}
+                <ul>
+                    {% for abonne in abonnes %}
+                        <li class="list-group-item">{{abonne.pseudo ~ " " ~ abonne.nom ~ " " ~ abonne.prenom }} <a href="{{path("abonne_show", {id: abonne.id})}}" class="btn btn-secondary">Voir le profil</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Pas de résultat correspondant dans les abonnés</p>
+            {% endif %}
+        {% endif %}
     </div>
 {% endblock %}
