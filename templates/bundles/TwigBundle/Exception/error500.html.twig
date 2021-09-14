@@ -1,0 +1,8 @@
+{% extends "base.html.twig" %}
+
+{% block h1 %}Erreur 500{% endblock %}
+
+{% block body %}
+    <p>Une erreur est survenue... oops!</p>
+    <a href="{{path("accueil")}}" class="btn btn-secondary">Retour à l'accueil</a>
+{% endblock %}
